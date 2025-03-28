@@ -1,10 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
-import Home from "./pages/home";
-import Login from "./pages/login";
-import AppContext from "./utils/AppContext";
-import { useInitialStateAppContext } from "./utils/AppContext/useInitialStateAppContext";
+import Home from "./src/pages/home";
+import Login from "./src/pages/login";
+import AppContext from "./src/utils/AppContext";
+import { useInitialStateAppContext } from "./src/utils/AppContext/useInitialStateAppContext";
 
 const Routes = () => {
   const initialState = useInitialStateAppContext();
