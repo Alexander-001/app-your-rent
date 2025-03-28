@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import {
   Animated,
   ScrollView,
@@ -55,7 +56,13 @@ const Header = () => {
               style={styles.option}
               onPress={() => handlePress(index)}
             >
-              {option.icon}
+              <FontAwesomeIcon
+                icon={option.icon}
+                size={30}
+                style={{
+                  color: selectedOption === option.name ? "#000" : "#c1c1c1",
+                }}
+              />
               <Text
                 style={[
                   styles.optionText,

@@ -4,7 +4,6 @@ import {
   faList,
   faMoneyBill,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { useEffect, useRef, useState } from "react";
 import { Animated, View } from "react-native";
 import { OptionIcons } from "../../interfaces/header.interface";
@@ -14,26 +13,14 @@ export const useHeader = () => {
   const [indicatorPosition] = useState<Animated.Value>(new Animated.Value(0));
   const [indicatorWidth, setIndicatorWidth] = useState<number>(0);
   const [options] = useState<OptionIcons[]>([
-    {
-      name: "Inicio",
-      icon: <FontAwesomeIcon icon={faHouse} size={30} />,
-    },
-    {
-      name: "Vender",
-      icon: <FontAwesomeIcon icon={faMoneyBill} size={30} />,
-    },
-    {
-      name: "Arrendar",
-      icon: <FontAwesomeIcon icon={faBriefcase} size={30} />,
-    },
-    {
-      name: "Categorias",
-      icon: <FontAwesomeIcon icon={faList} size={30} />,
-    },
+    { name: "Inicio", icon: faHouse },
+    { name: "Vender", icon: faMoneyBill },
+    { name: "Arrendar", icon: faBriefcase },
+    { name: "Categorias", icon: faList },
   ]);
 
-  const scrollViewRef = useRef(null);
-  const optionRefs = useRef<(View | null)[]>([]);
+  const scrollViewRef: any = useRef(null);
+  const optionRefs: any = useRef<(View | null)[]>([]);
 
   useEffect(() => {
     if (optionRefs.current[0] && scrollViewRef.current) {
