@@ -7,7 +7,7 @@ interface InitialStateAppContext {
 
 export const initialState: InitialStateAppContext = {
   token: "",
-  renderView: "Explora",
+  renderView: "Inicio",
 };
 
 export const useInitialStateAppContext = () => {

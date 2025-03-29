@@ -4,8 +4,9 @@ import Footer from "../../components/Footer";
 import { OptionsName } from "../../interfaces/footer.interface";
 import Explore from "./explore";
 import Favorites from "./favorites";
+import { default as Menu } from "./menu";
 import Message from "./message";
-import Profile from "./profile";
+import Notifications from "./notifications";
 import { useHome } from "./useHome";
 
 const Home: React.FC<{}> = () => {
@@ -32,19 +33,25 @@ const Home: React.FC<{}> = () => {
 
   return (
     <View style={{ flex: 1 }}>
+      {/* Contenedor del contenido, ajustado para no cubrir el Footer */}
       <Animated.View
         style={{
-          flex: 1,
+          flexGrow: 1, // Permite que el contenido se expanda sin empujar el Footer
           opacity: fadeAnim,
           transform: [{ translateY: translateAnim }],
+          paddingBottom: 80,
         }}
       >
-        {renderView === OptionsName.EXPLORE && <Explore />}
+        {renderView === OptionsName.HOME && <Explore />}
         {renderView === OptionsName.FAVORITES && <Favorites />}
         {renderView === OptionsName.MESSAGES && <Message />}
-        {renderView === OptionsName.PROFILE && <Profile />}
+        {renderView === OptionsName.NOTIFICATIONS && <Notifications />}
+        {renderView === OptionsName.MENU && <Menu />}
       </Animated.View>
-      <Footer />
+
+      <View style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
+        <Footer />
+      </View>
     </View>
   );
 };

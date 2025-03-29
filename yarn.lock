@@ -1135,6 +1135,11 @@
     find-up "^5.0.0"
     js-yaml "^4.1.0"
 
+"@fontsource-variable/onest@^5.2.7":
+  version "5.2.7"
+  resolved "https://registry.yarnpkg.com/@fontsource-variable/onest/-/onest-5.2.7.tgz#1a08bfd7934e80f835d716ee0bab02d2f45d0f02"
+  integrity sha512-iGsSGXwdqvaG5zJ6pmt7TKakYd5ADCzEZ4SPpaeueHrNiK3i6IbKrap4aK5vlak9E275BAHXv8Ac134r/PBREA==
+
 "@formatjs/ecma402-abstract@2.3.4":
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/@formatjs/ecma402-abstract/-/ecma402-abstract-2.3.4.tgz#e90c5a846ba2b33d92bc400fdd709da588280fbc"

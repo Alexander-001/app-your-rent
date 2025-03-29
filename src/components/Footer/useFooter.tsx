@@ -1,8 +1,9 @@
 import {
+  faBars,
+  faBell,
   faHeart,
-  faMagnifyingGlass,
+  faHome,
   faMessage,
-  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { Animated } from "react-native";
@@ -12,13 +13,13 @@ import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContex
 
 export const useFooter = () => {
   const { setRenderView }: StateAppContext = useContext<any>(AppContext);
-  const [selectedOption, setSelectedOption] = useState<string>("Explora");
+  const [selectedOption, setSelectedOption] = useState<string>("Inicio");
   const [indicatorPosition] = useState<Animated.Value>(new Animated.Value(0));
   const [indicatorWidth, setIndicatorWidth] = useState<number>(0);
   const [options] = useState<OptionIcons[]>([
     {
-      name: "Explora",
-      icon: faMagnifyingGlass,
+      name: "Inicio",
+      icon: faHome,
     },
     {
       name: "Favoritos",
@@ -29,8 +30,12 @@ export const useFooter = () => {
       icon: faMessage,
     },
     {
-      name: "Perfil",
-      icon: faUser,
+      name: "Notificaciones",
+      icon: faBell,
+    },
+    {
+      name: "Menú",
+      icon: faBars,
     },
   ]);
 

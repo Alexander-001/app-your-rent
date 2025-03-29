@@ -60,7 +60,7 @@ const Header = () => {
                 icon={option.icon}
                 size={30}
                 style={{
-                  color: selectedOption === option.name ? "#000" : "#c1c1c1",
+                  color: selectedOption === option.name ? "#3d3d3d" : "#c1c1c1",
                 }}
               />
               <Text

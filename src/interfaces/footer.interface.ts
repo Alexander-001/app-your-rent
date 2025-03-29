@@ -6,8 +6,9 @@ export interface OptionIcons {
 }
 
 export enum OptionsName {
+  HOME = "Inicio",
   FAVORITES = "Favoritos",
   MESSAGES = "Mensajes",
-  EXPLORE = "Explora",
-  PROFILE = "Perfil",
+  NOTIFICATIONS = "Notificaciones",
+  MENU = "Menú",
 }
