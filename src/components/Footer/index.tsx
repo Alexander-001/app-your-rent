@@ -15,6 +15,7 @@ const Footer = () => {
 
     //* Functions
     handlePress,
+    onClickOptionLogo,
   } = useFooter();
 
   return (
@@ -32,6 +33,7 @@ const Footer = () => {
         <View ref={optionRefs[index]} key={index}>
           <TouchableOpacity
             style={[styles.option]}
+            onPressIn={() => onClickOptionLogo(option.name)}
             onPress={() => handlePress(option.name, index)}
           >
             <FontAwesomeIcon

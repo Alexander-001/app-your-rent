@@ -4,3 +4,10 @@ export interface OptionIcons {
   name: string;
   icon: IconDefinition;
 }
+
+export enum OptionsName {
+  FAVORITES = "Favoritos",
+  MESSAGES = "Mensajes",
+  EXPLORE = "Explora",
+  PROFILE = "Perfil",
+}

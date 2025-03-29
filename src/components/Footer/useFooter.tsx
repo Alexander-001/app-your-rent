@@ -4,11 +4,14 @@ import {
   faMessage,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Animated } from "react-native";
-import { OptionIcons } from "../../interfaces/footer.interface";
+import { OptionIcons, OptionsName } from "../../interfaces/footer.interface";
+import AppContext from "../../utils/AppContext";
+import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContext";
 
 export const useFooter = () => {
+  const { setRenderView }: StateAppContext = useContext<any>(AppContext);
   const [selectedOption, setSelectedOption] = useState<string>("Explora");
   const [indicatorPosition] = useState<Animated.Value>(new Animated.Value(0));
   const [indicatorWidth, setIndicatorWidth] = useState<number>(0);
@@ -67,6 +70,12 @@ export const useFooter = () => {
     }
   };
 
+  const onClickOptionLogo = (optionName: string) => {
+    if (Object.values(OptionsName).includes(optionName as OptionsName)) {
+      setRenderView(optionName);
+    }
+  };
+
   return {
     //* Variables
     indicatorPosition,
@@ -77,5 +86,6 @@ export const useFooter = () => {
 
     //* Functions
     handlePress,
+    onClickOptionLogo,
   };
 };

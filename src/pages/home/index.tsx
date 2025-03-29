@@ -1,10 +1,11 @@
 import Footer from "../../components/Footer";
-import Header from "../../components/Header";
+import { useHome } from "./useHome";
 
 const Home: React.FC<any> = () => {
+  const {} = useHome();
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <Footer />
     </>
   );
