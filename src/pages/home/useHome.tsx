@@ -5,9 +5,9 @@ import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContex
 export const useHome = () => {
   const { renderView }: StateAppContext = useContext<any>(AppContext);
 
-  console.log("Render View: ", renderView);
   return {
     //* Variables
+    renderView,
     //* Functions
   };
 };
