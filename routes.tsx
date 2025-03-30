@@ -2,6 +2,22 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
 import Home from "./src/pages/home";
+import Menu from "./src/pages/home/menu";
+import HelpCenter from "./src/pages/home/menu/assistance/help-center";
+import HowWorks from "./src/pages/home/menu/assistance/how-works";
+import SendComments from "./src/pages/home/menu/assistance/send-comments";
+import Accessibility from "./src/pages/home/menu/information/accessibility";
+import Payments from "./src/pages/home/menu/information/payments";
+import PersonalInfo from "./src/pages/home/menu/information/personal-info";
+import SecurityLogin from "./src/pages/home/menu/information/security-login";
+import Taxes from "./src/pages/home/menu/information/taxes";
+import OpenSourceLicenses from "./src/pages/home/menu/legal/open-source-licenses";
+import PrivacyPolicy from "./src/pages/home/menu/legal/privacy-policy";
+import TermsOfService from "./src/pages/home/menu/legal/terms-of-service";
+import Profile from "./src/pages/home/menu/profile";
+import EditProfile from "./src/pages/home/menu/profile/edit-profile";
+import FindProduct from "./src/pages/home/menu/rents/find-product";
+import PushProduct from "./src/pages/home/menu/rents/push-product";
 import Login from "./src/pages/login";
 import AppContext from "./src/utils/AppContext";
 import { useInitialStateAppContext } from "./src/utils/AppContext/useInitialStateAppContext";
@@ -11,36 +27,59 @@ const Routes = () => {
   const Stack = createNativeStackNavigator();
 
   return (
-    <NavigationContainer
-      theme={{
-        dark: false,
-        colors: {
-          primary: "",
-          background: "",
-          card: "",
-          text: "",
-          border: "",
-          notification: "",
-        },
-        fonts: {
-          regular: { fontWeight: "100", fontFamily: "" },
-          medium: { fontWeight: "100", fontFamily: "" },
-          bold: { fontWeight: "100", fontFamily: "" },
-          heavy: { fontWeight: "100", fontFamily: "" },
-        },
-      }}
-    >
+    <NavigationContainer>
       <AppContext.Provider value={initialState}>
         <NativeBaseProvider>
           <Stack.Navigator
             screenOptions={{
               headerTitle: "",
               headerBackVisible: false,
+              animation: "slide_from_right",
+              gestureDirection: "horizontal",
             }}
             initialRouteName="Home"
           >
+            {/* Login */}
             <Stack.Screen name="Login" component={Login} />
+            {/* Home */}
             <Stack.Screen name="Home" component={Home} />
+            {/* Menu */}
+            <Stack.Screen
+              name="Menu"
+              component={Menu}
+              options={{ headerTitle: "Menú" }}
+            />
+            {/* Profile */}
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{
+                headerTitle: "Perfil",
+                headerBackVisible: true,
+                headerBackTitle: "Volver",
+              }}
+            />
+            <Stack.Screen name="EditProfile" component={EditProfile} />
+            {/* Information */}
+            <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+            <Stack.Screen name="Payments" component={Payments} />
+            <Stack.Screen name="Taxes" component={Taxes} />
+            <Stack.Screen name="SecurityLogin" component={SecurityLogin} />
+            <Stack.Screen name="Accessibility" component={Accessibility} />
+            {/* Rents */}
+            <Stack.Screen name="PushProduct" component={PushProduct} />
+            <Stack.Screen name="FindProduct" component={FindProduct} />
+            {/* Assistance */}
+            <Stack.Screen name="HelpCenter" component={HelpCenter} />
+            <Stack.Screen name="SendComments" component={SendComments} />
+            <Stack.Screen name="HowWorks" component={HowWorks} />
+            {/* Legal */}
+            <Stack.Screen name="TermsOfService" component={TermsOfService} />
+            <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+            <Stack.Screen
+              name="OpenSourceLicenses"
+              component={OpenSourceLicenses}
+            />
           </Stack.Navigator>
         </NativeBaseProvider>
       </AppContext.Provider>

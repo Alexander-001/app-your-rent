@@ -7,6 +7,7 @@ import Favorites from "./favorites";
 import { default as Menu } from "./menu";
 import Message from "./message";
 import Notifications from "./notifications";
+import { styles } from "./styles";
 import { useHome } from "./useHome";
 
 const Home: React.FC<{}> = () => {
@@ -33,14 +34,11 @@ const Home: React.FC<{}> = () => {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* Contenedor del contenido, ajustado para no cubrir el Footer */}
       <Animated.View
-        style={{
-          flexGrow: 1, // Permite que el contenido se expanda sin empujar el Footer
-          opacity: fadeAnim,
-          transform: [{ translateY: translateAnim }],
-          paddingBottom: 80,
-        }}
+        style={[
+          styles.animatedView,
+          { opacity: fadeAnim, transform: [{ translateY: translateAnim }] },
+        ]}
       >
         {renderView === OptionsName.HOME && <Explore />}
         {renderView === OptionsName.FAVORITES && <Favorites />}
@@ -48,10 +46,7 @@ const Home: React.FC<{}> = () => {
         {renderView === OptionsName.NOTIFICATIONS && <Notifications />}
         {renderView === OptionsName.MENU && <Menu />}
       </Animated.View>
-
-      <View style={{ position: "absolute", bottom: 0, left: 0, right: 0 }}>
-        <Footer />
-      </View>
+      <Footer />
     </View>
   );
 };

@@ -1,14 +1,17 @@
 import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import React from "react";
 import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useMenu } from "./useMenu";
 
-const Menu = () => {
+const Menu: React.FC<{}> = () => {
   const {
     //* Variables
     menuData,
+
     //* Functions
+    handleNavigation,
   } = useMenu();
 
   return (
@@ -21,7 +24,10 @@ const Menu = () => {
             <Text style={styles.sectionTitle}>{item.title}</Text>
             {item.data.map((option: any, index) => (
               <View key={index}>
-                <TouchableOpacity style={styles.item}>
+                <TouchableOpacity
+                  style={styles.item}
+                  onPress={() => handleNavigation(option.name)}
+                >
                   {option.isProfile ? (
                     <View style={styles.profileContainer}>
                       <Image

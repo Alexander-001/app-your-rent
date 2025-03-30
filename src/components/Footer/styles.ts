@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
     width: "100%",
     borderTopWidth: 1,
     borderTopColor: "#e6e6e6",
-    marginBottom: 30,
+    marginBottom: 20,
   },
   option: {
     alignItems: "center",

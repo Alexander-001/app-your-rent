@@ -1,7 +1,13 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
-import { MenuData } from "../../../interfaces/menu.interfaces";
+import { useNavigation } from "@react-navigation/native";
+import { StackNavigationProp } from "@react-navigation/stack";
+import {
+  MenuData,
+  RootStackParamList,
+} from "../../../interfaces/menu.interfaces";
 
 export const useMenu = () => {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const menuData: MenuData[] = [
     {
       key: "0",
@@ -53,9 +59,31 @@ export const useMenu = () => {
     },
   ];
 
+  const handleNavigation = (name: string) => {
+    const routes: any = {
+      "Mostrar perfil": "Profile",
+      "Información personal": "PersonalInfo",
+      "Pagos y cobros": "Payments",
+      Impuestos: "Taxes",
+      "Inicio de sesión y seguridad": "SecurityLogin",
+      Accesibilidad: "Accessibility",
+      "Publica tu producto": "PushProduct",
+      "Encuentra un producto": "FindProduct",
+      "Visita centro de ayuda": "HelpCenter",
+      "Enviar comentarios": "SendComments",
+      "Cómo funciona Your Rent": "HowWorks",
+      "Términos de servicios": "TermsOfService",
+      "Política de privacidad": "PrivacyPolicy",
+      "Licencias de código abierto": "OpenSourceLicenses",
+    };
+    navigation.navigate(routes[name]);
+  };
+
   return {
     //* Variables
     menuData,
+
     //* Functions
+    handleNavigation,
   };
 };

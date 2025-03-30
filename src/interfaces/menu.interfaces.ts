@@ -11,3 +11,22 @@ interface Data {
   icon?: IconDefinition;
   isProfile?: boolean;
 }
+
+export type RootStackParamList = {
+  Menu: undefined;
+  Profile: undefined;
+  EditProfile: undefined;
+  PersonalInfo: undefined;
+  Payments: undefined;
+  Taxes: undefined;
+  SecurityLogin: undefined;
+  Accessibility: undefined;
+  PushProduct: undefined;
+  FindProduct: undefined;
+  HelpCenter: undefined;
+  SendComments: undefined;
+  HowWorks: undefined;
+  TermsOfService: undefined;
+  PrivacyPolicy: undefined;
+  OpenSourceLicenses: undefined;
+};
