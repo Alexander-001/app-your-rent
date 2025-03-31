@@ -37,7 +37,7 @@ const Profile: React.FC<{}> = () => {
           </View>
         </View>
       </View>
-      {/*  <Slider dataSlider={reviews} /> */}
+      {/* <Slider dataSlider={reviews} /> */}
       <View style={styles.profilePosts}>
         <Text style={styles.sectionTitle}>Publicaciones</Text>
         {posts.slice(0, 3).map((post, idx) => (

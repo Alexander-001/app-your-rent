@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
 import Home from "./src/pages/home";
+import Login from "./src/pages/home/login";
 import Menu from "./src/pages/home/menu";
 import HelpCenter from "./src/pages/home/menu/assistance/help-center";
 import HowWorks from "./src/pages/home/menu/assistance/how-works";
@@ -18,7 +19,6 @@ import Profile from "./src/pages/home/menu/profile";
 import EditProfile from "./src/pages/home/menu/profile/edit-profile";
 import FindProduct from "./src/pages/home/menu/rents/find-product";
 import PushProduct from "./src/pages/home/menu/rents/push-product";
-import Login from "./src/pages/login";
 import AppContext from "./src/utils/AppContext";
 import { useInitialStateAppContext } from "./src/utils/AppContext/useInitialStateAppContext";
 

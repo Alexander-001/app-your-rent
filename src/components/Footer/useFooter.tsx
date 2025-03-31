@@ -4,6 +4,7 @@ import {
   faHeart,
   faHome,
   faMessage,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { Animated } from "react-native";
@@ -12,7 +13,7 @@ import AppContext from "../../utils/AppContext";
 import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContext";
 
 export const useFooter = () => {
-  const { setRenderView }: StateAppContext = useContext<any>(AppContext);
+  const { token, setRenderView }: StateAppContext = useContext<any>(AppContext);
   const [selectedOption, setSelectedOption] = useState<string>("Inicio");
   const [indicatorPosition] = useState<Animated.Value>(new Animated.Value(0));
   const [indicatorWidth, setIndicatorWidth] = useState<number>(0);
@@ -34,8 +35,8 @@ export const useFooter = () => {
       icon: faBell,
     },
     {
-      name: "Menú",
-      icon: faBars,
+      name: token !== "" ? "Menú" : "Login",
+      icon: token !== "" ? faBars : faUser,
     },
   ]);
 

@@ -11,4 +11,5 @@ export enum OptionsName {
   MESSAGES = "Mensajes",
   NOTIFICATIONS = "Notificaciones",
   MENU = "Menú",
+  LOGIN = "Login",
 }
