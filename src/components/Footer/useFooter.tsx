@@ -17,7 +17,7 @@ export const useFooter = () => {
   const [selectedOption, setSelectedOption] = useState<string>("Inicio");
   const [indicatorPosition] = useState<Animated.Value>(new Animated.Value(0));
   const [indicatorWidth, setIndicatorWidth] = useState<number>(0);
-  const [options] = useState<OptionIcons[]>([
+  const [options, setOptions] = useState<OptionIcons[]>([
     {
       name: "Inicio",
       icon: faHome,
@@ -35,10 +35,37 @@ export const useFooter = () => {
       icon: faBell,
     },
     {
-      name: token !== "" ? "Menú" : "Login",
-      icon: token !== "" ? faBars : faUser,
+      name: "Login",
+      icon: faUser,
     },
   ]);
+
+  useEffect(() => {
+    if (token !== "") {
+      setOptions([
+        {
+          name: "Inicio",
+          icon: faHome,
+        },
+        {
+          name: "Favoritos",
+          icon: faHeart,
+        },
+        {
+          name: "Mensajes",
+          icon: faMessage,
+        },
+        {
+          name: "Notificaciones",
+          icon: faBell,
+        },
+        {
+          name: "Menú",
+          icon: faBars,
+        },
+      ]);
+    }
+  }, [token]);
 
   const optionRefs: any = useState(options.map(() => React.createRef()))[0];
 

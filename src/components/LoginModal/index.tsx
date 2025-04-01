@@ -17,18 +17,31 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
     panResponder,
     modalPosition,
     selectedCountry,
-    phoneNumber,
+    inputs,
     isCountryModalVisible,
     countryModalPosition,
     countries,
+    showEmailInput,
+    errorsInputs,
+    showInsertCode,
+    otp,
+    inputRefs,
+    otpColors,
+    showPasswordInput,
 
     //* Functions
     closeMainModal,
     openCountryModal,
-    setPhoneNumber,
     closeCountryModal,
     handleSelectCountry,
+    onPressNext,
+    onPressNextCode,
+    onPressEmail,
+    handleChangeInputs,
+    handleChange,
+    handleKeyPress,
   } = useLoginModal(isModalVisible, closeModal);
+
   return (
     <Modal transparent visible={isModalVisible} animationType="none">
       <View style={styles.modalOverlay}>
@@ -43,28 +56,108 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
             <Text style={styles.closeText}>✕</Text>
           </TouchableOpacity>
           <Text style={styles.modalTitle}>Iniciar sesión o regístrate</Text>
-          <View style={styles.inputContainer}>
-            <View style={styles.selectContainer}>
-              <Text style={styles.placeholder}>País o Región</Text>
-              <TouchableOpacity
-                onPress={openCountryModal}
-                style={styles.pickerButton}
-              >
-                <Text>{selectedCountry.message || "Selecciona tu país"}</Text>
-              </TouchableOpacity>
+          {showEmailInput ? (
+            <View>
+              <View style={styles.inputContainer}>
+                <Text style={styles.placeholder}>Ingresa tu correo</Text>
+                <TextInput
+                  style={styles.input}
+                  placeholder="correo@correo.com"
+                  keyboardType="email-address"
+                  value={inputs.email}
+                  onChangeText={(text) => handleChangeInputs("email", text)}
+                />
+                {showPasswordInput && (
+                  <TextInput
+                    style={styles.input}
+                    placeholder="******"
+                    keyboardType="visible-password"
+                    value={inputs.password}
+                    onChangeText={(text) =>
+                      handleChangeInputs("password", text)
+                    }
+                  />
+                )}
+                {errorsInputs.email !== "" && (
+                  <Text style={styles.errorsInputs}>{errorsInputs.email}</Text>
+                )}
+                {errorsInputs.password !== "" && (
+                  <Text style={styles.errorsInputs}>
+                    {errorsInputs.password}
+                  </Text>
+                )}
+              </View>
             </View>
-            <TextInput
-              style={styles.input}
-              placeholder="Número de teléfono"
-              keyboardType="phone-pad"
-              value={phoneNumber}
-              onChangeText={setPhoneNumber}
-            />
-          </View>
-          <Text style={styles.message}>
-            Te llamaremos o enviaremos un mensaje para confirmar el número.
-          </Text>
-          <TouchableOpacity style={styles.continueButton}>
+          ) : (
+            <View>
+              {showInsertCode ? (
+                <View style={styles.container}>
+                  <Text style={styles.textCode}>
+                    Ingresa el codigo que enviamos por SMS al{" "}
+                    {inputs.phoneNumber}
+                  </Text>
+                  <View style={styles.contentCode}>
+                    {otp.map((digit, index) => (
+                      <TextInput
+                        key={index}
+                        ref={inputRefs[index]}
+                        style={[
+                          styles.inputCode,
+                          { borderColor: otpColors[index] || "#ddd" },
+                        ]} // Color dinámico
+                        keyboardType="numeric"
+                        maxLength={1}
+                        value={digit}
+                        onChangeText={(text) => handleChange(text, index)}
+                        onKeyPress={(e) => handleKeyPress(e, index)}
+                      />
+                    ))}
+                  </View>
+                </View>
+              ) : (
+                <View>
+                  <View style={styles.inputContainer}>
+                    <View style={styles.selectContainer}>
+                      <Text style={styles.placeholder}>País o Región</Text>
+                      <TouchableOpacity
+                        onPress={openCountryModal}
+                        style={styles.pickerButton}
+                      >
+                        <Text>
+                          {selectedCountry.message || "Selecciona tu país"}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="Número de teléfono"
+                      keyboardType="phone-pad"
+                      value={inputs.phoneNumber}
+                      onChangeText={(text) =>
+                        handleChangeInputs("phoneNumber", text)
+                      }
+                    />
+                    {errorsInputs.phoneNumber !== "" && (
+                      <Text style={styles.errorsInputs}>
+                        {errorsInputs.phoneNumber}
+                      </Text>
+                    )}
+                  </View>
+                  <Text style={styles.message}>
+                    Te llamaremos o enviaremos un mensaje para confirmar el
+                    número.
+                  </Text>
+                </View>
+              )}
+            </View>
+          )}
+          <TouchableOpacity
+            style={styles.continueButton}
+            onPress={
+              !showEmailInput && showInsertCode ? onPressNextCode : onPressNext
+            }
+            activeOpacity={0.8}
+          >
             <Text style={styles.continueButtonText}>Siguiente</Text>
           </TouchableOpacity>
           <Modal
@@ -98,7 +191,7 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
                         country.code === selectedCountry.code
                           ? "#ff0000"
                           : "transparent"
-                      } // Background color when checked
+                      }
                       isChecked={country.code === selectedCountry.code}
                       onTouchStart={() => handleSelectCountry(country)}
                     />
@@ -107,17 +200,31 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
               </Animated.View>
             </View>
           </Modal>
-
           <View style={styles.separator}>
             <Text style={{ color: "#c1c1c1" }}>
               ----------------------------- o -----------------------------
             </Text>
           </View>
+          {showEmailInput ? (
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={onPressEmail}
+            >
+              <Text>Iniciar con tu telefono</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.socialButton}
+              onPress={onPressEmail}
+            >
+              <Text>Iniciar con tu correo</Text>
+            </TouchableOpacity>
+          )}
           <TouchableOpacity style={styles.socialButton}>
-            <Text>Inicia sesión con Apple</Text>
+            <Text>Iniciar con Apple</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.socialButton}>
-            <Text>Inicia sesión con Google</Text>
+            <Text>Iniciar con Google</Text>
           </TouchableOpacity>
         </Animated.View>
       </View>

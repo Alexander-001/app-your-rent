@@ -133,4 +133,38 @@ export const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
   },
+  errorsInputs: {
+    color: "#ff0000",
+    fontWeight: "semibold",
+  },
+
+  container: {
+    flexDirection: "column",
+    justifyContent: "center",
+    marginTop: 20,
+    marginBottom: 30,
+  },
+  contentCode: {
+    flexDirection: "row",
+  },
+  textCode: {
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#3d3d3d",
+  },
+  inputCode: {
+    width: 50,
+    height: 60,
+    borderWidth: 2,
+    textAlign: "center",
+    fontSize: 22,
+    marginHorizontal: 8,
+    borderRadius: 10,
+    backgroundColor: "#fff",
+    elevation: 5, // Sombra en Android
+    shadowColor: "#000", // Sombra en iOS
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+  },
 });
