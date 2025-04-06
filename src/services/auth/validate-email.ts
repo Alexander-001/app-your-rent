@@ -22,7 +22,6 @@ export const validateEmail = async (body: LoginEmail) => {
     data.existsUser = response.existsUser || false;
     data.user = response.user || null;
   } catch (error: any) {
-    console.log("error: ", error);
     const { message, errorSession } = manageSessionError(
       error,
       "Validar correo"

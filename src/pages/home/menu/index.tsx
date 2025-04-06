@@ -5,11 +5,14 @@ import { FlatList, Image, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useMenu } from "./useMenu";
 
-const Menu: React.FC<{}> = () => {
+interface MenuProps {
+  onClickCloseSession: () => void;
+}
+
+const Menu: React.FC<MenuProps> = ({ onClickCloseSession }) => {
   const {
     //* Variables
     menuData,
-
     //* Functions
     handleNavigation,
   } = useMenu();
@@ -19,6 +22,7 @@ const Menu: React.FC<{}> = () => {
       <FlatList
         data={menuData}
         keyExtractor={(item) => item.key}
+        contentContainerStyle={{ paddingBottom: 100 }}
         renderItem={({ item }) => (
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>{item.title}</Text>
@@ -53,7 +57,10 @@ const Menu: React.FC<{}> = () => {
           </View>
         )}
         ListFooterComponent={
-          <TouchableOpacity style={styles.logoutButton}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={onClickCloseSession}
+          >
             <Text style={styles.logoutText}>Cerrar sesión</Text>
           </TouchableOpacity>
         }

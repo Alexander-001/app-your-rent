@@ -13,3 +13,9 @@ export const manageSessionError = (
     errorSession: false,
   };
 };
+
+export const validateIsLogged = (token: string) => {
+  let isLogged: boolean = true;
+  if (token === "") return (isLogged = false);
+  return isLogged;
+};

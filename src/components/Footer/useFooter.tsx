@@ -12,35 +12,38 @@ import { OptionIcons, OptionsName } from "../../interfaces/footer.interface";
 import AppContext from "../../utils/AppContext";
 import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContext";
 
+const defaultOptions: OptionIcons[] = [
+  {
+    name: "Inicio",
+    icon: faHome,
+  },
+  {
+    name: "Favoritos",
+    icon: faHeart,
+  },
+  {
+    name: "Mensajes",
+    icon: faMessage,
+  },
+  {
+    name: "Notificaciones",
+    icon: faBell,
+  },
+  {
+    name: "Login",
+    icon: faUser,
+  },
+];
+
 export const useFooter = () => {
   const { token, setRenderView }: StateAppContext = useContext<any>(AppContext);
   const [selectedOption, setSelectedOption] = useState<string>("Inicio");
   const [indicatorPosition] = useState<Animated.Value>(new Animated.Value(0));
   const [indicatorWidth, setIndicatorWidth] = useState<number>(0);
-  const [options, setOptions] = useState<OptionIcons[]>([
-    {
-      name: "Inicio",
-      icon: faHome,
-    },
-    {
-      name: "Favoritos",
-      icon: faHeart,
-    },
-    {
-      name: "Mensajes",
-      icon: faMessage,
-    },
-    {
-      name: "Notificaciones",
-      icon: faBell,
-    },
-    {
-      name: "Login",
-      icon: faUser,
-    },
-  ]);
+  const [options, setOptions] = useState<OptionIcons[]>(defaultOptions);
 
   useEffect(() => {
+    console.log("token", token);
     if (token !== "") {
       setOptions([
         {
@@ -64,7 +67,8 @@ export const useFooter = () => {
           icon: faBars,
         },
       ]);
-    }
+    } else setOptions(defaultOptions);
+    setSelectedOption("Inicio");
   }, [token]);
 
   const optionRefs: any = useState(options.map(() => React.createRef()))[0];
@@ -79,6 +83,9 @@ export const useFooter = () => {
   const handlePress = (optionName: string, index: number) => {
     setSelectedOption(optionName);
     animatedBorder(index);
+    if (Object.values(OptionsName).includes(optionName as OptionsName)) {
+      setRenderView(optionName);
+    }
   };
 
   const animatedBorder = (selectedIndex: number) => {
@@ -103,12 +110,6 @@ export const useFooter = () => {
     }
   };
 
-  const onClickOptionLogo = (optionName: string) => {
-    if (Object.values(OptionsName).includes(optionName as OptionsName)) {
-      setRenderView(optionName);
-    }
-  };
-
   return {
     //* Variables
     indicatorPosition,
@@ -119,6 +120,5 @@ export const useFooter = () => {
 
     //* Functions
     handlePress,
-    onClickOptionLogo,
   };
 };

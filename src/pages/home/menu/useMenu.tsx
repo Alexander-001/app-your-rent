@@ -1,12 +1,16 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import { useContext } from "react";
 import {
   MenuData,
   RootStackParamList,
 } from "../../../interfaces/menu.interfaces";
+import AppContext from "../../../utils/AppContext";
+import { StateAppContext } from "../../../utils/AppContext/useInitialStateAppContext";
 
 export const useMenu = () => {
+  const { token, setToken }: StateAppContext = useContext<any>(AppContext);
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const menuData: MenuData[] = [
     {

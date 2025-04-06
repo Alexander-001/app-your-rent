@@ -20,6 +20,9 @@ const Home: React.FC<{}> = () => {
 
     //* Functions
     closeModal,
+    onClickCloseSession,
+    validateSuccessLogin,
+    changeSelectedOptionFooter,
   } = useHome();
 
   return (
@@ -31,11 +34,21 @@ const Home: React.FC<{}> = () => {
       >
         <LoginModal isModalVisible={isModalVisible} closeModal={closeModal} />
         {renderView === OptionsName.HOME && <Explore />}
-        {renderView === OptionsName.FAVORITES && <Favorites />}
-        {renderView === OptionsName.MESSAGES && <Message />}
-        {renderView === OptionsName.NOTIFICATIONS && <Notifications />}
-        {renderView === OptionsName.MENU && <Menu />}
-        {renderView === OptionsName.LOGIN && <LoginScreen />}
+        {renderView === OptionsName.FAVORITES && (
+          <Favorites validateSuccessLogin={validateSuccessLogin} />
+        )}
+        {renderView === OptionsName.MESSAGES && (
+          <Message validateSuccessLogin={validateSuccessLogin} />
+        )}
+        {renderView === OptionsName.NOTIFICATIONS && (
+          <Notifications validateSuccessLogin={validateSuccessLogin} />
+        )}
+        {renderView === OptionsName.MENU && (
+          <Menu onClickCloseSession={onClickCloseSession} />
+        )}
+        {renderView === OptionsName.LOGIN && (
+          <LoginScreen validateSuccessLogin={validateSuccessLogin} />
+        )}
       </Animated.View>
       <Footer />
     </View>

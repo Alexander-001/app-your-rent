@@ -1,3 +1,5 @@
+import { faLock, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { Checkbox } from "native-base";
 import React from "react";
 import {
@@ -11,7 +13,17 @@ import {
 import { styles } from "./styles";
 import { useLoginModal } from "./useLoginModal";
 
-const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
+interface LoginProps {
+  isModalVisible: boolean;
+  closeModal: Function;
+  callbackLogin?: Function;
+}
+
+const LoginModal: React.FC<LoginProps> = ({
+  isModalVisible,
+  closeModal,
+  callbackLogin,
+}) => {
   const {
     //* Variables
     panResponder,
@@ -28,6 +40,7 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
     inputRefs,
     otpColors,
     showPasswordInput,
+    showPassword,
 
     //* Functions
     closeMainModal,
@@ -40,7 +53,8 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
     handleChangeInputs,
     handleChange,
     handleKeyPress,
-  } = useLoginModal(isModalVisible, closeModal);
+    setShowPassword,
+  } = useLoginModal(isModalVisible, closeModal, callbackLogin);
 
   return (
     <Modal transparent visible={isModalVisible} animationType="none">
@@ -68,15 +82,28 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
                   onChangeText={(text) => handleChangeInputs("email", text)}
                 />
                 {showPasswordInput && (
-                  <TextInput
-                    style={styles.input}
-                    placeholder="******"
-                    keyboardType="visible-password"
-                    value={inputs.password}
-                    onChangeText={(text) =>
-                      handleChangeInputs("password", text)
-                    }
-                  />
+                  <View style={styles.passwordContainer}>
+                    <TextInput
+                      style={styles.input}
+                      placeholder="******"
+                      secureTextEntry={!showPassword}
+                      keyboardType="visible-password"
+                      value={inputs.password}
+                      onChangeText={(text) =>
+                        handleChangeInputs("password", text)
+                      }
+                    />
+                    <TouchableOpacity
+                      onPress={() => setShowPassword(!showPassword)}
+                      style={styles.passwordIcon}
+                    >
+                      <FontAwesomeIcon
+                        icon={showPassword ? faUnlock : faLock}
+                        size={20}
+                        color="#000"
+                      />
+                    </TouchableOpacity>
+                  </View>
                 )}
                 {errorsInputs.email !== "" && (
                   <Text style={styles.errorsInputs}>{errorsInputs.email}</Text>
@@ -104,7 +131,7 @@ const LoginModal: React.FC<any> = ({ isModalVisible, closeModal }) => {
                         style={[
                           styles.inputCode,
                           { borderColor: otpColors[index] || "#ddd" },
-                        ]} // Color dinámico
+                        ]}
                         keyboardType="numeric"
                         maxLength={1}
                         value={digit}

@@ -4,7 +4,9 @@ import { Animated, Text, TouchableOpacity, View } from "react-native";
 import { styles } from "./styles";
 import { useFooter } from "./useFooter";
 
-const Footer = () => {
+interface FooterProps {}
+
+const Footer: React.FC<FooterProps> = () => {
   const {
     //* Variables
     indicatorPosition,
@@ -15,7 +17,6 @@ const Footer = () => {
 
     //* Functions
     handlePress,
-    onClickOptionLogo,
   } = useFooter();
 
   return (
@@ -33,7 +34,6 @@ const Footer = () => {
         <View ref={optionRefs[index]} key={index}>
           <TouchableOpacity
             style={[styles.option]}
-            onPressIn={() => onClickOptionLogo(option.name)}
             onPress={() => handlePress(option.name, index)}
           >
             <FontAwesomeIcon

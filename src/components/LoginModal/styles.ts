@@ -14,6 +14,17 @@ export const styles = StyleSheet.create({
     height: "90%",
     width: "100%",
   },
+  passwordContainer: {
+    width: "100%",
+    position: "relative",
+    justifyContent: "center",
+  },
+  passwordIcon: {
+    marginLeft: 10,
+    position: "absolute",
+    right: 20,
+    bottom: 20,
+  },
   countryModalOverlay: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.5)",

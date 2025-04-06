@@ -1,11 +1,13 @@
 import { useContext, useEffect, useRef, useState } from "react";
-import { Animated } from "react-native";
+import { Alert, Animated } from "react-native";
+import { OptionsName } from "../../interfaces/footer.interface";
 import AppContext from "../../utils/AppContext";
 import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContext";
 
 export const useHome = () => {
-  const { renderView }: StateAppContext = useContext<any>(AppContext);
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const { renderView, setToken, setRenderView }: StateAppContext =
+    useContext<any>(AppContext);
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(true);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const translateAnim = useRef(new Animated.Value(10)).current;
 
@@ -28,6 +30,30 @@ export const useHome = () => {
 
   const closeModal = () => setIsModalVisible(false);
 
+  const onClickCloseSession = () => {
+    Alert.alert(
+      "Cerrar sesión",
+      "¿Estás seguro de que quieres cerrar sesión?",
+      [
+        { text: "Cancelar", style: "cancel" },
+        {
+          text: "Cerrar sesión",
+          style: "destructive",
+          onPress: () => {
+            setToken("");
+            setRenderView(OptionsName.HOME);
+          },
+        },
+      ]
+    );
+  };
+
+  const validateSuccessLogin = () => {
+    setRenderView(OptionsName.HOME);
+  };
+
+  const changeSelectedOptionFooter = () => {};
+
   return {
     //* Variables
     renderView,
@@ -37,5 +63,8 @@ export const useHome = () => {
 
     //* Functions
     closeModal,
+    onClickCloseSession,
+    validateSuccessLogin,
+    changeSelectedOptionFooter,
   };
 };

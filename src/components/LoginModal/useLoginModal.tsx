@@ -8,13 +8,15 @@ import { StateAppContext } from "../../utils/AppContext/useInitialStateAppContex
 
 export const useLoginModal = (
   isModalVisible: boolean,
-  closeModal: Function
+  closeModal: Function,
+  callbackLogin?: Function
 ) => {
   const { setToken }: StateAppContext = useContext<any>(AppContext);
   const { height } = Dimensions.get("window");
   const MODAL_HEIGHT = height * 0.9;
   const [isCountryModalVisible, setIsCountryModalVisible] =
     useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [selectedCountry, setSelectedCountry] = useState<{
     code: string;
     message: string;
@@ -149,9 +151,13 @@ export const useLoginModal = (
         email: inputs.email,
         password: inputs.password,
       });
-      if (data.token === "") Alert.alert(data.message);
+      if (data.token === "") {
+        Alert.alert(data.message);
+        return;
+      }
       setToken(data.token);
       closeModal();
+      if (callbackLogin) callbackLogin();
       return;
     }
     if (showEmailInput) {
@@ -244,6 +250,7 @@ export const useLoginModal = (
     isOtpComplete,
     otpColors,
     showPasswordInput,
+    showPassword,
 
     //* Functions
     closeMainModal,
@@ -256,5 +263,6 @@ export const useLoginModal = (
     handleChange,
     handleKeyPress,
     onPressNextCode,
+    setShowPassword,
   };
 };
