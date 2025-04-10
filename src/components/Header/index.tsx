@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import React from "react";
 import {
   Animated,
   ScrollView,
@@ -10,7 +11,11 @@ import {
 import { styles } from "./styles";
 import { useHeader } from "./useHeader";
 
-const Header = () => {
+interface HeaderProps {
+  setSelectedOptionHeader: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Header: React.FC<HeaderProps> = ({ setSelectedOptionHeader }) => {
   const {
     //* Variables
     options,
@@ -22,7 +27,7 @@ const Header = () => {
 
     //* Functions
     handlePress,
-  } = useHeader();
+  } = useHeader(setSelectedOptionHeader);
 
   return (
     <View style={styles.container}>

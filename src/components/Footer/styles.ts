@@ -8,11 +8,9 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     backgroundColor: "#fff",
     position: "absolute",
-    bottom: 0,
+    bottom: 5,
     width: "100%",
-    borderTopWidth: 1,
-    borderTopColor: "#e6e6e6",
-    marginBottom: 20,
+    minHeight: 80,
   },
   option: {
     alignItems: "center",

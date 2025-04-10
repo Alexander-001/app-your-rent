@@ -229,7 +229,7 @@ const LoginModal: React.FC<LoginProps> = ({
           </Modal>
           <View style={styles.separator}>
             <Text style={{ color: "#c1c1c1" }}>
-              ----------------------------- o -----------------------------
+            ------------------------ o ------------------------
             </Text>
           </View>
           {showEmailInput ? (

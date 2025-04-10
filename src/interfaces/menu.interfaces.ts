@@ -14,6 +14,7 @@ interface Data {
 
 export type RootStackParamList = {
   Menu: undefined;
+  ProductDetail: undefined;
   Home: undefined;
   Profile: undefined;
   EditProfile: undefined;

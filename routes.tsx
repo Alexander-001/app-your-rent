@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NativeBaseProvider } from "native-base";
 import Home from "./src/pages/home";
+import ProductDetail from "./src/pages/home/explore/search/product-details";
 import Login from "./src/pages/home/login";
 import Menu from "./src/pages/home/menu";
 import HelpCenter from "./src/pages/home/menu/assistance/help-center";
@@ -40,12 +41,16 @@ const Routes = () => {
             initialRouteName="Home"
           >
             {/* Login */}
-            <Stack.Screen name="Login" component={Login} />
+            <Stack.Screen
+              name="Login" //@ts-ignore
+              component={Login}
+            />
             {/* Home */}
             <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="ProductDetail" component={ProductDetail} />
             {/* Menu */}
             <Stack.Screen
-              name="Menu"
+              name="Menu" //@ts-ignore
               component={Menu}
               options={{ headerTitle: "Menú" }}
             />
