@@ -3,135 +3,111 @@ import {
   faHeart,
   faPaperPlane,
   faShareAlt,
-} from "@fortawesome/free-solid-svg-icons"; // Importar los íconos necesarios
+} from "@fortawesome/free-solid-svg-icons";
+
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { RouteProp } from "@react-navigation/native";
 import React from "react";
-import { Button, Image, ScrollView, Text, TextInput, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Map from "../../../../../components/Map";
+import Slider from "../../../../../components/Slider";
 import { RootStackParamList } from "../../../../../interfaces/menu.interfaces";
-import { Product } from "../../../../../interfaces/product.interface";
+import { formatPrice } from "../../../../../utils/common";
+import { styles } from "./styles";
+import { useProductDetails } from "./useProductDetails";
 
-// Asegúrate de que los tipos de navegación estén bien configurados
-type ProductDetailScreenRouteProp = RouteProp<
+export type ProductDetailScreenRouteProp = RouteProp<
   RootStackParamList,
   "ProductDetail"
 >;
 
 const ProductDetail = ({ route }: { route: ProductDetailScreenRouteProp }) => {
-  const data: any = route.params;
-  const product: Product = data.product;
-
-  const images = product.images.split(","); // Dividir las imágenes
-
-  const renderCarouselItem = ({ item }: { item: string }) => (
-    <Image
-      source={{ uri: item }}
-      style={{ width: "100%", height: 300 }}
-      resizeMode="cover"
-    />
-  );
+  const { carouselImages, product } = useProductDetails(route);
 
   return (
-    <ScrollView style={{ flex: 1, padding: 10 }}>
-      {/* Carrusel de imágenes */}
-      <View style={{ height: 300 }}>
-        {/* <Carousel
-          data={images}
-          renderItem={renderCarouselItem}
-          sliderWidth={400}
-          itemWidth={400}
-          loop={true}
-        /> */}
+    <KeyboardAwareScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1 }}
+      enableOnAndroid
+      keyboardShouldPersistTaps="handled"
+      extraScrollHeight={40}
+      enableAutomaticScroll
+    >
+      <View style={{ height: 420 }}>
+        <Slider dataSlider={carouselImages} />
       </View>
 
-      {/* Título y precio */}
-      <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 10 }}>
-        {product.name}
-      </Text>
-      <Text style={{ fontSize: 20, color: "#09f", marginTop: 5 }}>
-        ${product.price}
-      </Text>
+      <View style={{ paddingHorizontal: 20 }}>
+        <Text style={styles.name}>{product.name}</Text>
+        <Text style={styles.price}>
+          {formatPrice(product.price.toString(), "CLP")}
+        </Text>
 
-      {/* Card para mensaje al vendedor */}
-      <View
-        style={{
-          marginTop: 20,
-          padding: 10,
-          backgroundColor: "#f7f7f7",
-          borderRadius: 8,
-          elevation: 3,
-        }}
-      >
-        <Text>Envia un mensaje al vendedor</Text>
-        <TextInput
-          style={{
-            height: 40,
-            borderColor: "#ccc",
-            borderWidth: 1,
-            borderRadius: 5,
-            marginTop: 10,
-            paddingLeft: 10,
-          }}
-          placeholder="Hola ¿sigue estando disponible?"
-        />
-        <Button title="Enviar" onPress={() => {}} color="#09f" />
-      </View>
-
-      {/* Iconos y texto */}
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-around",
-          marginTop: 20,
-        }}
-      >
-        <View style={{ alignItems: "center" }}>
-          <FontAwesomeIcon icon={faBell} size={30} style={{ color: "#000" }} />
-          <Text>Alertas</Text>
+        <View style={styles.contentSendMessage}>
+          <Text style={styles.textSend}>Envía un mensaje al vendedor</Text>
+          <View style={styles.content}>
+            <TextInput
+              style={styles.input}
+              placeholder="Hola. ¿Sigue estando disponible?"
+            />
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.textButton}>Enviar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={{ alignItems: "center" }}>
-          <FontAwesomeIcon
-            icon={faPaperPlane}
-            size={30}
-            style={{ color: "#000" }}
-          />
-          <Text>Enviar Oferta</Text>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <FontAwesomeIcon
-            icon={faShareAlt}
-            size={30}
-            style={{ color: "#000" }}
-          />
-          <Text>Compartir</Text>
-        </View>
-        <View style={{ alignItems: "center" }}>
-          <FontAwesomeIcon icon={faHeart} size={30} style={{ color: "#000" }} />
-          <Text>Favorito</Text>
-        </View>
-      </View>
 
-      {/* Descripción */}
-      <View style={{ marginTop: 20 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Descripción</Text>
-        <Text>{product.description}</Text>
-      </View>
+        {/* ICONOS */}
+        <View style={styles.contentIcons}>
+          {[
+            { icon: faBell, label: "Alertas" },
+            { icon: faPaperPlane, label: "Enviar Oferta" },
+            { icon: faShareAlt, label: "Compartir" },
+            { icon: faHeart, label: "Favorito" },
+          ].map(({ icon, label }, index) => (
+            <View key={index} style={styles.iconContainer}>
+              <View style={styles.iconCircle}>
+                <FontAwesomeIcon icon={icon} size={20} color="#333" />
+              </View>
+              <Text style={styles.iconLabel}>{label}</Text>
+            </View>
+          ))}
+        </View>
 
-      {/* Detalles */}
-      <View style={{ marginTop: 20 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Detalles</Text>
-        <Text>Estado: {product.status}</Text>
-      </View>
+        <View style={styles.divider} />
 
-      {/* Ubicación (puedes reemplazar con un mapa más tarde) */}
-      <View style={{ marginTop: 20 }}>
-        <Text style={{ fontSize: 18, fontWeight: "bold" }}>Ubicación</Text>
-        <Image
-          source={{ uri: "https://via.placeholder.com/300x200" }} // Placeholder de mapa
-          style={{ width: "100%", height: 200, borderRadius: 8 }}
-        />
+        {/* DESCRIPCIÓN */}
+        <View style={styles.top20}>
+          <Text style={styles.sectionTitle}>Descripción</Text>
+          <Text style={styles.description}>{product.description}</Text>
+        </View>
+
+        <View style={styles.divider} />
+
+        {/* DETALLES */}
+        <View style={styles.top20}>
+          <Text style={styles.sectionTitle}>Detalles</Text>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailKey}>Estado.</Text>
+            <Text style={styles.detailValue}>{product.status}</Text>
+          </View>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailKey}>Marca.</Text>
+            <Text style={styles.detailValue}>Mac</Text>
+          </View>
+        </View>
+
+        <View style={styles.divider} />
+
+        {/* UBICACIÓN */}
+        <View style={[styles.top20, { marginBottom: 50 }]}>
+          <Text style={styles.sectionTitle}>Preferencias de entrega</Text>
+          <Map />
+
+          <Text style={styles.locationNote}>La ubicación es cerca</Text>
+        </View>
       </View>
-    </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

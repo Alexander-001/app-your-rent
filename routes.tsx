@@ -47,7 +47,14 @@ const Routes = () => {
             />
             {/* Home */}
             <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ProductDetail" component={ProductDetail} />
+            <Stack.Screen
+              name="ProductDetail" // @ts-ignore
+              component={ProductDetail}
+              options={{
+                headerBackVisible: true,
+                headerBackTitle: "Volver",
+              }}
+            />
             {/* Menu */}
             <Stack.Screen
               name="Menu" //@ts-ignore

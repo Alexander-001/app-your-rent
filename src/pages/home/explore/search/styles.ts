@@ -2,21 +2,34 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   scrollContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingBottom: 20,
   },
   containerSuggestions: {
     marginVertical: 10,
     display: "flex",
     width: "100%",
+    alignItems: "center",
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  suggestionsContainer: {
+    display: "flex",
+    width: "50%",
+    height: "auto",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  locationText: {
+    color: "#09f",
+    fontSize: 14,
+    paddingLeft: 10,
   },
   suggestionsText: {
     color: "#333",
     fontSize: 16,
     fontWeight: "600",
-    paddingBottom: 10,
   },
   suggestionMap: {
     flexDirection: "row",
@@ -32,6 +45,5 @@ export const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
   },
 });

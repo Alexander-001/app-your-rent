@@ -31,11 +31,13 @@ const Header: React.FC<HeaderProps> = ({ setSelectedOptionHeader }) => {
 
   return (
     <View style={styles.container}>
-      <TextInput
-        style={styles.searchInput}
-        placeholder="Empieza tu búsqueda..."
-        placeholderTextColor="#999"
-      />
+      {selectedOption === "Buscar" && (
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Empieza tu búsqueda..."
+          placeholderTextColor="#999"
+        />
+      )}
       <ScrollView
         ref={scrollViewRef}
         horizontal

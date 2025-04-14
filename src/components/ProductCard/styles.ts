@@ -2,10 +2,10 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   productCard: {
-    width: "48%",
-    aspectRatio: 0.75,
-    marginBottom: 12,
-    borderRadius: 12,
+    width: "49%",
+    aspectRatio: 0.9,
+    marginBottom: 10,
+    borderRadius: 5,
     overflow: "hidden",
   },
   productImage: {

@@ -1,3 +1,5 @@
+import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { ScrollView, Text, View } from "react-native";
 import ProductCard from "../../../../components/ProductCard";
 import { styles } from "./styles";
@@ -15,11 +17,15 @@ const SearchView = () => {
 
   return (
     <ScrollView
-      contentContainerStyle={[styles.scrollContainer, { paddingBottom: 200 }]}
+      contentContainerStyle={[styles.scrollContainer, { paddingBottom: 250 }]}
       style={{ height: screenHeight - headerHeight }}
     >
       <View style={styles.containerSuggestions}>
         <Text style={styles.suggestionsText}>Sugerencias de hoy</Text>
+        <View style={styles.suggestionsContainer}>
+          <FontAwesomeIcon icon={faLocationDot} style={{ color: "#09f" }} />
+          <Text style={styles.locationText}>Santiago de Chile - 5km</Text>
+        </View>
       </View>
 
       <View style={{ width: "100%" }}>
